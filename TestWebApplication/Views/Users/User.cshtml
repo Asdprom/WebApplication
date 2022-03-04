@@ -1,0 +1,38 @@
+﻿@model TestWebApplication.Models.User;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+{
+    <table>
+        @Html.HiddenFor(m => m.Id)
+        <tr>
+            <td>Имя:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Email)
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td>
+                @Html.TextBoxFor(m => m.Address)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Send"/>
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+}

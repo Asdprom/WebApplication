@@ -1,0 +1,65 @@
+﻿@model TestWebApplication.Models.User;
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<table class="table">
+    @foreach (var user in @ViewBag.Users)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            <td>@user.Address</td>
+            <td>@Html.ActionLink("edit", "User", new { id = user.Id } )</td>
+            <td><a onclick="deleteUser('@user.Id')" href="#"> delete </a></td>
+        </tr>
+    }
+</table>
+<form method="post" asp-action="Users">
+    <table>
+        <tr>
+            <td>Имя:</td>
+            <td>
+                <input type="text" name="Name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>
+                <input type="text" name="Email"/>
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес:</td>
+            <td>
+                <input type="text" name="Address"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Send"/>
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+</form>
+
+
+<script type="text/javascript">
+    function  deleteUser(userId) {
+        $.ajax({
+            url: '/delete/' + userId,
+            type: 'DELETE',
+            contentType: "application/json; charset=utf-8",
+            success: function () {
+                location.reload()
+            },
+            error: function () {
+                alert("Всё сломалось!!!")
+            }
+        })
+    }
+</script>
