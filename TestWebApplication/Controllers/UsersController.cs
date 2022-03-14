@@ -7,9 +7,9 @@ namespace TestWebApplication.Controllers;
 public class UsersController : Controller
 {
     private readonly ILogger<UsersController> _logger;
-    private readonly UsersService _usersService;
+    private readonly IUsersService _usersService;
 
-    public UsersController(ILogger<UsersController> logger, UsersService usersService)
+    public UsersController(ILogger<UsersController> logger, IUsersService usersService)
     {
         _logger = logger;
         _usersService = usersService;

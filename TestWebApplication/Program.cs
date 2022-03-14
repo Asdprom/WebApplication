@@ -1,12 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using TestWebApplication.Data;
 using TestWebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<UsersService>();
+builder.Services.AddDbContext<TestDbContext>(options => options.UseNpgsql(
+                                                 builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddTransient<IUsersService, UsersService>();
 
 var app = builder.Build();
+DbInitializer.InitializeDb(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
