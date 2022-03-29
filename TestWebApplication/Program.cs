@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using TestWebApplication.Data;
 using TestWebApplication.Services;
@@ -9,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TestDbContext>(options => options.UseNpgsql(
                                                  builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddTransient<AuthenticationService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+       .AddCookie(options => options.LoginPath = "/login");
 
 var app = builder.Build();
 DbInitializer.InitializeDb(app);
@@ -27,6 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

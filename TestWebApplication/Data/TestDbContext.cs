@@ -10,4 +10,6 @@ public class TestDbContext : DbContext
     }
 
     public DbSet<User> Users { get; set; } = null!;
+
+    public DbSet<Person> Persons { get; set; } = null!;
 }

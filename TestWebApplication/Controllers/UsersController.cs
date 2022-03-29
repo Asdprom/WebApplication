@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TestWebApplication.Models;
 using TestWebApplication.Services;
 
 namespace TestWebApplication.Controllers;
 
+[Authorize]
 public class UsersController : Controller
 {
     private readonly ILogger<UsersController> _logger;
